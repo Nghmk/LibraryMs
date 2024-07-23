@@ -1,0 +1,139 @@
+CREATE DATABASE library;
+
+
+
+CREATE TABLE books(
+    BookId VARCHAR(30),
+    Title VARCHAR(50) NOT NULL,
+     Author VARCHAR(50) NOT NULL,
+     Publisher VARCHAR(50) NOT NULL,
+     Genre VARCHAR(50) NOT NULL,
+     Language VARCHAR(50),
+     NumberOfPages INT,
+     PRIMARY KEY(BookId)
+        );
+
+CREATE TABLE publishers(
+       PublisherId VARCHAR(20),
+       PublisherName VARCHAR (50) NOT NULL,
+       EmailOrAddress VARCHAR (100) NOT NULL,
+       ContactNumber VARCHAR(12) UNIQUE,
+       PRIMARY KEY (PublisherId)
+    );
+
+CREATE TABLE genres(
+ GenreId VARCHAR(30) ,
+ GenreName VARCHAR(50),
+ PRIMARY KEY(GenreId)
+ );
+
+CREATE TABLE members(
+  UserId VARCHAR(30),
+  UserName VARCHAR(50)NOT NULL,
+  First_Name VARCHAR(50)NOT NULL,
+  Last_Name VARCHAR(50) NOT NULL,
+  Email VARCHAR(40) NOT NULL DEFAULT 'No Email',
+  ContactNumber VARCHAR(12) UNIQUE,
+  Address VARCHAR(255) NOT NULL DEFAULT 'No Address',
+  Position VARCHAR(50) NOT NULL,
+  Join_Date DATE NOT NULL,
+  PRIMARY KEY(UserId)
+ );
+
+
+CREATE TABLE transactions(
+      TransactionId VARCHAR(30),
+      UserId VARCHAR(30),
+      BookId VARCHAR(30),
+      IssueDate DATE NOT NULL,
+      DueDate DATE NOT NULL,
+      PRIMARY KEY(TransactionId),
+      FOREIGN KEY(UserId) REFERENCES members(UserId),
+      FOREIGN KEY(BookId) REFERENCES Books(BookId)
+       );
+
+CREATE TABLE fine(
+  FineId INT,
+  TransactionId VARCHAR(30),
+  DueDate DATE NOT NULL,
+  ReturnDate DATE NOT NULL,
+  FineAmount DECIMAL(10,2) NOT NULL,
+  PaymentDate VARCHAR(100) NOT NULL,
+  PRIMARY KEY(FineId),
+  FOREIGN KEY(TransactionId) REFERENCES transactions(TransactionId)
+);
+
+
+INSERT INTO members VALUES('C0001', 'WKAWeerathunga','Kamani Arya','Weerathunga','wkamaniarya2000@gmail.com', '0761244987', 'No12/A, Kadawatha RD, Kadawatha' , 'Student', '2023-01-03'),
+('C0002','AMAmarawathi','Muthumali','Amarawthi','No email' ,'0741234975','Kiramba,Opanayaka','Housewife','2023-02-05'),
+('C0003','NGHMK','Heshani Madhumali','Kumari','nghmkumari2001@gmail.com','0774368929','A/3 ,Hunuwala,Opanayaka','Teacher','2023-02-06'),
+('C0004','PWKKarunadasa','Kumara','Karunadasa','pwkumarakaru1990@gmail.com','0721834879','GalwalaRd,Horana','Driver','2023-03-09' ),
+('C0005','CAWChathurika','Wimansi','Chathurika','chathurikachathurika000@gmail.com','0452278123','Dandeniya,Opanayaka','Student','2023-03-09'),
+('C0006','WPCWimukthi','Priyan Chamath','Wimukthi','priyanchamathpriyan@gmail.com','0764523987','No 5, Main RD, Balangoda','Tea Planter','2023-04-28'),
+('C0007','GSSenawirathna','Gayan Suranga','Senawirathna','surangagayan78@gmail.com','0713498260','Batadura,Opanayaka','Store Manager','2023-05-10'),
+('C0008','JSeuwandi','Jayani','Seuwandi','jjjseuwandi1029@gmail.com','0752976190','Kahawaththa RD,Pelmadulla ','Teacher','2023-05-26'),
+('C0009','Wikramapala','Gamini','Wikramapala','No email','0782390456','Bogaha Junction,Hunuwala','Pensioner','2023-05-27'),
+('C0010','GHGamage','Hemalatha','Gamage','gamage123gamage@gmail.com','0763425187','No2/B,BorugodaRd, Borugoda, Balangoda','Lawyer','2023-06-11'),
+('C0011','KLJayamaha','Kelum Lakshan','Jayamaha','gamini456@gmail.com','0456723900','"Jayamaha House",Panana,Opanayaka','Student','2023-06-30'),
+('C0012','FNadha','Fathima','Nadha','nadhafathima450@gmail.com','07756123000','Delgashandiya, Hunuwala,Opanayaka','Student','2023-10-29'),
+('C0013','KDAFernando','Anuhas','Fernando','kdanuhasfernando40@gmail.com','0717890230','B/12,Ganegoda,Kahawaththa','Assistant','2023-10-28'),
+('C0014','Priya','Yumandi','Priyashani','yuma2000yuma@gmail.com','0762398000','A2,Dehigasdeniya,pelmadulla','Dental Assistant','2023-12-05');
+
+INSERT INTO books VALUES('B07001','The Complete Works of Wiliyam Shakespeare','Wiliyam Shakespeare','Sarasavi Publisher','Drama','English','1264'),
+('B01002','The Road to Kandahar','John Wilcox','Headline Book Pulishing','Fiction','English','352'),
+('B02003','A Study In Scarlet','Arthur Conan Doyle','M.D.Gunasena','Mystery','English','188'),
+('B01004','Viragaya','Martin Wickramasinghe','Sarasa Publisher','Fiction','Sinhala','277'),
+('B04005','Madol Doova','Martin Wickramasinghe','Sarasa Publisher','Adventure','Sinhala', '171'),
+('B01006','Gamperaliya','Martin Wickramasinghe','Sarasa Publisher','Fiction','Sinhala','285'),
+('B01007','Ape Gama','Martin Wickramasinghe','Sarasa Publisher','Fiction','Sinhala','260'),
+('B05008','Golu Hadawatha','Karunasena Jayalath','Sarasa Publisher','Romance','Sinhala','360'),
+('B01009','Yuganthaya','Martin Wickramasinghe','Sarasa Publisher','Fiction','Sinhala','292'),
+('B01010','Kaliyugaya','Martin Wickramasinghe','Sarasa Publisher','Fiction','Sinhala','322'),
+('B07011','Nidhanaya','G.B.Senanayake','M.D.Gunasena','Drama','Sinhala','260'),
+('B01012','Vansanatha Mala','W.A.Silva','S.Godage & Brothers','Fiction','Sinhala','430'),
+('B06013','Bawa Tharanaya','K.jayatilleke','M.D.Gunasena','Religious Fiction','Sinhala','198'),
+('B01014','Deiyannange Rate','Saman Wickramarachchi','Sarasavi Publisher','Fiction','Sinhala','220'),
+('B07015','Sama','Ediriweera Sarachchandra','M.D.Gunasena','Drama','Sinhala',250),
+('B03016','The Village in the Jungle','Leonard Woolf','S.Godage & Brothers','Historical','English','244'),
+('B08017','Veerasinghege Satan Kathawan','Martin Wickramasinghe','Vijitha Yapa Publication','Short Stories','Sinhala','210'),
+('B05018','Piyumige Sihinaya','Chulananda Samaranayaka','Sarasavi Publisher','Romance',' Sinhala','320'),
+('B04019','Sihina Deshayak','Koggala Eashan','S.Godage & Brothers','Adventure','Sinhala','300'),
+('B05020','Hitha Honda Dosthar','Karunasena jayalath','Sarasa Publisher','Romance','Sinhala','250'),
+('B03021','Wijaya Bahu','Y.PraBhakara','Sarasavi Publishers',' Historical','Sinhala','300'),
+('B05022','Maha Ravana','W.A.Silva','M.D.Gunasena','Romance','Sinhala','400');
+
+INSERT INTO publishers VALUES('P001','Headline Book Publishing','enquiries@hachette.co.uk​','+44203127222'),
+('P002','Sarasa Publisher','Contactbooksy.lk@gmail.com','+94777325356'),
+('P003','S.Godage & Brothers','661 P De S Kularatne Mawatha, Colombo 01000, Sri Lanka','+94112686925'),
+('P004','Sarasavi Publisher','No 30, Stanley Thilakaratna Mw, Nugegoda, Sri Lanka','+94112852519'),
+('P005','M.D.Gunasena','info@mdgunasena.com','+94112323336'),
+('P006','Vijitha Yapa Publisher','16 Claessen Place, Colombo 05, Sri Lanka','+94112556600');
+
+INSERT INTO genres VALUES('G001','Fiction'),
+('G002','Mystery'),
+('G003','Historical'),
+('G004','Adventure'),
+('G005','Romance'),
+('G006','Riligious Fiction'),
+('G007','Drama'),
+('G008','Short Stories'),
+('G009','Fantasy');
+
+INSERT INTO transactions VALUES('T01','C0001','B01014','2023-04-03','2023-04-17'),
+('T02','C0014','B01007','2024-04-12','2024-04-26'),
+('T03','C0002','B07015','2023-06-02','2023-06-16'),
+('T04','C0009','B05018','2023-11-15','2023-11-29'),
+('T05','C0011','B05020','2023-11-28','2023-12-12'),
+('T06','C0013','B04019','2023-12-01','2023-12-15'),
+('T07','C0004','B01012','2024-12-31','2024-01-14'),
+('T08','C0006','B07011','2024-01-07','2024-01-21'),
+('T09','C0010','B03016','2024-01-20','2024-02-03'),
+('T10','C0007','B01009','2024-03-15','2024-03-29'),
+('T11','C0002','B01009','2024-04-02','2024-04-16');
+
+INSERT INTO fine VALUES('1001','T02','2024-04-26','2024-04-25','00.00',' - '),
+('1002','T09','2024-02-03','2024-02-05','8.00','2024-02-05'),
+('1003','T04','2023-11-29','2023-11-30','4.00','2023-11-30'),
+('1004','T11','2024-04-16','2024-04-06','0.00','  -  ');
+
+
