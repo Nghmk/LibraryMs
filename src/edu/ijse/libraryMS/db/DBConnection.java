@@ -7,7 +7,7 @@ package edu.ijse.libraryMS.db;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
+ 
 /**
  *
  * @author heman
@@ -19,7 +19,7 @@ public class DBConnection {
     
     private DBConnection()throws ClassNotFoundException, SQLException{
         Class.forName("com.mysql.cj.jdbc.Driver");
-        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/supermarket", "root", "4363");
+        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "4363");
         
     }
     public static DBConnection getInstance( )throws ClassNotFoundException, SQLException{

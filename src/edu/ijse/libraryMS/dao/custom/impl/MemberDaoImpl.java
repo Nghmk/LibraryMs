@@ -18,13 +18,13 @@ public class MemberDaoImpl implements MemberDao{
 
     @Override
     public boolean create(MemberEntity t) throws Exception {
-         return CrudUtil.excuteUpdate("INSERT INTO members VALUES(?,?,?,?,?,?,?,?,?) ", t.getUserId(),t.getUserName(),t.getFirst_Name(),t.getLast_Name(),t.getEmail(),t.getContactNumber(),t.getAddress(),t.getPosition(),t.getJoinDate());
+         return CrudUtil.excuteUpdate("INSERT INTO members VALUES(?,?,?,?,?,?,?,?,?) ", t.getUserId(),t.getUserName(),t.getFirst_Name(),t.getLast_Name(),t.getEmail(),t.getContactNumber(),t.getAddress(),t.getPosition(),t.getJoin_Date());
     }
 
     @Override
     public boolean update(MemberEntity t) throws Exception {
-        return CrudUtil.excuteUpdate("UPDATE MEMBERS SET UserName =? ,First_Name = ?, Last_Name = ?, Email = ?, ContactNumber = ?, Address = ?, Position = ?, Join_Date = ? WHERE UserId = ? ",
-                t.getUserName(),t.getFirst_Name(),t.getLast_Name(),t.getEmail(),t.getContactNumber(),t.getAddress(),t.getPosition(),t.getJoinDate(), t.getUserId() );
+        return CrudUtil.excuteUpdate("UPDATE MEMBERS SET UserName = ? ,First_Name = ?, Last_Name = ?, Email = ?, ContactNumber = ?, Address = ?, Position = ?, Join_Date = ? WHERE UserId = ? ",
+                t.getUserName(),t.getFirst_Name(),t.getLast_Name(),t.getEmail(),t.getContactNumber(), t.getAddress(),t.getPosition(),t.getJoin_Date() );
     }
 
     @Override
@@ -53,7 +53,7 @@ public class MemberDaoImpl implements MemberDao{
 
     @Override
     public ArrayList<MemberEntity> getAll() throws Exception {
-         ArrayList<MemberEntity> memberEntitys = new ArrayList<>();
+         ArrayList<MemberEntity> memberEntities = new ArrayList<>();
          ResultSet rst = CrudUtil.excuteQuery("SELECT * FROM members");
          while(rst.next()){
              MemberEntity entity = new MemberEntity(rst.getString("UserId"),
@@ -65,9 +65,9 @@ public class MemberDaoImpl implements MemberDao{
                    rst.getString("Address"),
                    rst.getString("Position"),
                    rst.getString("Join_Date"));
-          memberEntitys.add(entity);
+          memberEntities.add(entity);
          }
-         return memberEntitys;
+         return memberEntities;
     }
     
 }

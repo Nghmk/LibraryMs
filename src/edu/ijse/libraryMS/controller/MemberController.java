@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 public class MemberController {
     
-    private MemberService memberService = (MemberService)ServiceFactory.getInstance().getService(ServiceFactory.ServiceType.MEMBER);
+    private MemberService memberService = (MemberService)ServiceFactory.getInstance().getService(ServiceFactory.ServiceType.MEMBERS);
     public String save(MemberDto memberDto) throws Exception{
         return memberService.save(memberDto);
     } 

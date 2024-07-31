@@ -4,17 +4,27 @@
  */
 package edu.ijse.libraryMS.view;
 
+import edu.ijse.libraryMS.controller.MemberController;
+import edu.ijse.libraryMS.dto.MemberDto;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author heman
  */
 public class MemberView extends javax.swing.JFrame {
+    private MemberController memberController;
 
     /**
      * Creates new form MemberView
      */
-    public MemberView() {
+    public MemberView() throws Exception{
         initComponents();
+        memberController = new MemberController();
+        loadTable();
+             
     }
 
     /**
@@ -43,13 +53,13 @@ public class MemberView extends javax.swing.JFrame {
         lblAddress = new javax.swing.JLabel();
         txtPosition = new javax.swing.JTextField();
         lblPosition = new javax.swing.JLabel();
-        txtJoinDate = new javax.swing.JTextField();
-        lblJoinDate = new javax.swing.JLabel();
+        txtJoin_Date = new javax.swing.JTextField();
+        lblJoin_Date = new javax.swing.JLabel();
         btnUpdate = new javax.swing.JButton();
-        btnSave1 = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblMembers = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,13 +81,13 @@ public class MemberView extends javax.swing.JFrame {
 
         lblFirst_Name.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblFirst_Name.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblFirst_Name.setText("First Name  :");
+        lblFirst_Name.setText("First_Name :");
 
         txtFirst_Name.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         lblLast_Name.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblLast_Name.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblLast_Name.setText("Last Name  :");
+        lblLast_Name.setText("Last_Name  :");
 
         txtLast_Name.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
@@ -105,22 +115,38 @@ public class MemberView extends javax.swing.JFrame {
         lblPosition.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblPosition.setText("Position :");
 
-        txtJoinDate.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtJoin_Date.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        lblJoinDate.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblJoinDate.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblJoinDate.setText("Join Date :");
+        lblJoin_Date.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblJoin_Date.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblJoin_Date.setText("Join_Date :");
 
         btnUpdate.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
 
-        btnSave1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        btnSave1.setText("Save");
+        btnSave.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
 
         btnDelete.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblMembers.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        tblMembers.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -131,7 +157,12 @@ public class MemberView extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tblMembers.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblMembersMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblMembers);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -139,7 +170,7 @@ public class MemberView extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSave1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -181,9 +212,9 @@ public class MemberView extends javax.swing.JFrame {
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addComponent(txtPosition, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGroup(layout.createSequentialGroup()
-                                                .addComponent(lblJoinDate, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(lblJoin_Date, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(txtJoinDate, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addComponent(txtJoin_Date, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addGap(0, 187, Short.MAX_VALUE))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
@@ -234,8 +265,8 @@ public class MemberView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblLast_Name, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblJoinDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtJoinDate, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
+                        .addComponent(lblJoin_Date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtJoin_Date, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
                     .addComponent(txtLast_Name))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -245,7 +276,7 @@ public class MemberView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSave1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 93, Short.MAX_VALUE))
@@ -253,6 +284,22 @@ public class MemberView extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        saveMember();
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        updateMember();
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+       deleteMember();
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void tblMembersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMembersMouseClicked
+       searchMember();
+    }//GEN-LAST:event_tblMembersMouseClicked
 
     /**
      * @param args the command line arguments
@@ -291,28 +338,149 @@ public class MemberView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelete;
-    private javax.swing.JButton btnSave1;
+    private javax.swing.JButton btnSave;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblAddress;
     private javax.swing.JLabel lblContactNumber;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblFirst_Name;
-    private javax.swing.JLabel lblJoinDate;
+    private javax.swing.JLabel lblJoin_Date;
     private javax.swing.JLabel lblLast_Name;
     private javax.swing.JLabel lblMemberList;
     private javax.swing.JLabel lblPosition;
     private javax.swing.JLabel lblUserId;
     private javax.swing.JLabel lblUserName;
+    private javax.swing.JTable tblMembers;
     private javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtContactNumber;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtFirst_Name;
-    private javax.swing.JTextField txtJoinDate;
+    private javax.swing.JTextField txtJoin_Date;
     private javax.swing.JTextField txtLast_Name;
     private javax.swing.JTextField txtPosition;
     private javax.swing.JTextField txtUserId;
     private javax.swing.JTextField txtUserName;
     // End of variables declaration//GEN-END:variables
+
+    private  void clearForm(){
+        txtUserId.setText("");
+        txtUserName.setText("");
+        txtFirst_Name.setText("");
+        txtLast_Name.setText("");
+        txtEmail.setText("");
+        txtContactNumber.setText("");
+        txtAddress.setText("");
+        txtPosition.setText("");
+        txtJoin_Date.setText("");
+  }
+    
+   private void loadTable(){
+       try {
+           String columns[] ={"User Id","User Name","First Name","Last Name","Email","Contact Number","Address","Position","Join Date"};
+           DefaultTableModel dtm = new DefaultTableModel(columns, 0){
+               @Override
+               public boolean isCellEditable(int row , int column){
+                   return false;
+               }
+               
+           };
+           tblMembers.setModel(dtm);
+           
+           ArrayList<MemberDto> memberDtos = memberController.getAll();
+           for(MemberDto dto : memberDtos){
+               Object[] rowData ={dto.getUserId(),dto.getUserName(),dto.getFirst_Name(),dto.getLast_Name(),dto.getEmail(),dto.getContactNumber(),dto.getAddress(),dto.getPosition(),dto.getJoin_Date()};
+                dtm.addRow(rowData);
+               
+           }
+           
+       } catch (Exception e) {
+           JOptionPane.showMessageDialog(this, "Error at Loading Data to Members Table");
+       }
+       
+   }
+
+
+    private void saveMember() {
+            try {
+            MemberDto dto = new MemberDto(txtUserId.getText(),
+                    txtUserName.getText(),
+                    txtFirst_Name.getText(),
+                    txtLast_Name.getText(),
+                    txtEmail.getText(),
+                    txtContactNumber.getText(),
+                    txtAddress.getText(),
+                    txtPosition.getText(),
+                    txtJoin_Date.getText());
+            
+            String resp = memberController.save(dto);
+            JOptionPane.showMessageDialog(this, resp);
+            clearForm();
+            loadTable();
+            
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error at save data");
+        }
+    }
+
+    private void updateMember() {
+             try {
+        MemberDto dto = new MemberDto(txtUserId.getText(),
+                    txtUserName.getText(),
+                    txtFirst_Name.getText(),
+                    txtLast_Name.getText(),
+                    txtEmail.getText(),
+                    txtContactNumber.getText(),
+                    txtAddress.getText(),
+                    txtPosition.getText(),
+                    txtJoin_Date.getText());
+        String resp = memberController.update(dto);
+        JOptionPane.showMessageDialog(this, resp);
+        clearForm();
+        loadTable();
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error at Update Member");
+        }
+    }
+
+    private void deleteMember() {
+               try {
+            String userId = txtUserId.getText();
+            String resp = memberController.delete(userId);
+            JOptionPane.showMessageDialog(this, resp);
+            clearForm();
+            loadTable();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error at Delete Member");
+        }
+    }
+
+    private void searchMember() {
+               try {
+           String userId = tblMembers.getValueAt(tblMembers.getSelectedRow(), 0).toString();
+           MemberDto dto = memberController.get(userId);
+           
+           if(dto != null){
+               txtUserId.setText(dto.getUserId());
+               txtUserName.setText(dto.getUserName());
+               txtFirst_Name.setText(dto.getFirst_Name());
+               txtLast_Name.setText(dto.getLast_Name());
+               txtEmail.setText(dto.getEmail());
+               txtContactNumber.setText(dto.getContactNumber());
+               txtAddress.setText(dto.getAddress());
+               txtPosition.setText(dto.getPosition());
+               txtJoin_Date.setText(dto.getJoin_Date());
+               
+          }else{
+              JOptionPane.showMessageDialog(this, "Member Not Found");  
+           }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error at loading Member");
+        }
+    }
+
+    
 }
+
+

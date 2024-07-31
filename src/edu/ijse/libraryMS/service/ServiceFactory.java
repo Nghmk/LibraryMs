@@ -4,6 +4,7 @@
  */
 package edu.ijse.libraryMS.service;
 
+import edu.ijse.libraryMS.service.custom.impl.BookServiceImpl;
 import edu.ijse.libraryMS.service.custom.impl.MemberServiceImpl;
 
 /**
@@ -24,14 +25,16 @@ public class ServiceFactory {
     
     public SuperService getService(ServiceType serviceType){
         switch (serviceType) {
-            case MEMBER:
+            case MEMBERS:
                 return new MemberServiceImpl();
+             case BOOKS:
+                return new BookServiceImpl();
             default:
                 return null;
         }
     }
     
     public enum ServiceType{
-        MEMBER
+        MEMBERS, BOOKS
     }
 }

@@ -17,12 +17,12 @@ public class MemberEntity {
     private String contactNumber;
     private String address;
     private String position;
-    private String joinDate;
+    private String join_Date;
 
     public MemberEntity() {
     }
 
-    public MemberEntity(String userId, String userName, String first_Name, String last_Name, String email, String contactNumber, String address, String position, String joinDate) {
+    public MemberEntity(String userId, String userName, String first_Name, String last_Name, String email, String contactNumber, String address, String position, String join_Date) {
         this.userId = userId;
         this.userName = userName;
         this.first_Name = first_Name;
@@ -31,7 +31,7 @@ public class MemberEntity {
         this.contactNumber = contactNumber;
         this.address = address;
         this.position = position;
-        this.joinDate = joinDate;
+        this.join_Date = join_Date;
     }
 
     /**
@@ -147,23 +147,24 @@ public class MemberEntity {
     }
 
     /**
-     * @return the joinDate
+     * @return the join_Date
      */
-    public String getJoinDate() {
-        return joinDate;
+    public String getJoin_Date() {
+        return join_Date;
     }
 
     /**
-     * @param joinDate the joinDate to set
+     * @param join_Date the join_Date to set
      */
-    public void setJoinDate(String joinDate) {
-        this.joinDate = joinDate;
+    public void setJoin_Date(String join_Date) {
+        this.join_Date = join_Date;
     }
 
     @Override
     public String toString() {
-        return "MemberEntity{" + "userId=" + userId + ", userName=" + userName + ", first_Name=" + first_Name + ", last_Name=" + last_Name + ", email=" + email + ", contactNumber=" + contactNumber + ", address=" + address + ", position=" + position + ", joinDate=" + joinDate + '}';
+        return "MemberEntity{" + "userId=" + userId + ", userName=" + userName + ", first_Name=" + first_Name + ", last_Name=" + last_Name + ", email=" + email + ", contactNumber=" + contactNumber + ", address=" + address + ", position=" + position + ", join_Date=" + join_Date + '}';
     }
+
     
     
 }

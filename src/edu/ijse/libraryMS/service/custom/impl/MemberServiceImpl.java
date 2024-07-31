@@ -48,11 +48,11 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public ArrayList<MemberDto> getAll() throws Exception {
-        ArrayList<MemberEntity> memberEntitys = memberDao.getAll();
-        if(memberEntitys != null && !memberEntitys.isEmpty()){
+        ArrayList<MemberEntity> memberEntities = memberDao.getAll();
+        if(memberEntities != null && !memberEntities.isEmpty()){
             ArrayList<MemberDto> memberDtos = new ArrayList<>();
             
-            for (MemberEntity memberEntity : memberEntitys) {
+            for (MemberEntity memberEntity : memberEntities) {
                 memberDtos.add(getMemberDto(memberEntity));  
             }
             return memberDtos;
@@ -70,7 +70,7 @@ public class MemberServiceImpl implements MemberService {
                 memberDto.getContactNumber(),
                 memberDto.getAddress(),
                 memberDto.getPosition(), 
-                memberDto.getJoinDate());
+                memberDto.getJoin_Date());
     }
     
         private MemberDto getMemberDto(MemberEntity entity ){
@@ -83,7 +83,7 @@ public class MemberServiceImpl implements MemberService {
                 entity.getContactNumber(),
                 entity.getAddress(),
                 entity.getPosition(),
-                entity.getJoinDate());
+                entity.getJoin_Date());
             
     }
 }
