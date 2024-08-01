@@ -48,8 +48,8 @@ public class BooksView extends javax.swing.JFrame {
         txtGenre = new javax.swing.JTextField();
         lblLanguage = new javax.swing.JLabel();
         txtLanguage = new javax.swing.JTextField();
-        lblNumberOfPage = new javax.swing.JLabel();
-        txtNumberOfPage = new javax.swing.JTextField();
+        lblNumberOfPages = new javax.swing.JLabel();
+        txtNumberOfPages = new javax.swing.JTextField();
         btnSave = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -80,8 +80,8 @@ public class BooksView extends javax.swing.JFrame {
         lblLanguage.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblLanguage.setText("Language");
 
-        lblNumberOfPage.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblNumberOfPage.setText("Number of Page");
+        lblNumberOfPages.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblNumberOfPages.setText("Number of Pages");
 
         btnSave.setText("Save");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
@@ -155,9 +155,9 @@ public class BooksView extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(txtLanguage, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lblNumberOfPage, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lblNumberOfPages, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtNumberOfPage, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(txtNumberOfPages, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(14, 14, 14)
                                         .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -210,8 +210,8 @@ public class BooksView extends javax.swing.JFrame {
                             .addComponent(lblLanguage, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtNumberOfPage)
-                            .addComponent(lblNumberOfPage, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE))
+                            .addComponent(txtNumberOfPages)
+                            .addComponent(lblNumberOfPages, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnSave)
@@ -285,7 +285,7 @@ public class BooksView extends javax.swing.JFrame {
     private javax.swing.JLabel lblBookId;
     private javax.swing.JLabel lblGenre;
     private javax.swing.JLabel lblLanguage;
-    private javax.swing.JLabel lblNumberOfPage;
+    private javax.swing.JLabel lblNumberOfPages;
     private javax.swing.JLabel lblPublisher;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JTable tblBookCategories;
@@ -293,14 +293,14 @@ public class BooksView extends javax.swing.JFrame {
     private javax.swing.JTextField txtBookId;
     private javax.swing.JTextField txtGenre;
     private javax.swing.JTextField txtLanguage;
-    private javax.swing.JTextField txtNumberOfPage;
+    private javax.swing.JTextField txtNumberOfPages;
     private javax.swing.JTextField txtPublisher;
     private javax.swing.JTextField txtTitle;
     // End of variables declaration//GEN-END:variables
 
     private void loadTable() {
         try {
-            String columns[] = {"Book Id","Title","Author","Publisher","Genre","Language","NumberOfPage"};
+            String columns[] = {"Book Id","Title","Author","Publisher","Genre","Language","Number Of Pages"};
             DefaultTableModel dtm = new DefaultTableModel(columns, 0){
                 @Override
                 public boolean isCellEditable(int row ,int column){
@@ -311,13 +311,14 @@ public class BooksView extends javax.swing.JFrame {
             
             ArrayList<BookDto> bookDtos = bookController.getAll();
             for( BookDto dto : bookDtos){
-                Object[] rowData ={dto.getBookId(),dto.getTitle(),dto.getAuthor(),dto.getPublisher(),dto.getGenre(),dto.getLanguage(),dto.getNumberOfPage()};
+                Object[] rowData ={dto.getBookId(),dto.getTitle(),dto.getAuthor(),dto.getPublisher(),dto.getGenre(),dto.getLanguage(),Integer.toString(dto.getNumberOfPages())};
                 dtm.addRow(rowData);
           
             }
             
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this,"Error at Loading Data to Book Categories Table");
+            
+            JOptionPane.showMessageDialog(this,"Error at Loading Data to Book Categories Table" );
         }
      }
     private void clearForm(){
@@ -327,7 +328,7 @@ public class BooksView extends javax.swing.JFrame {
         txtPublisher.setText("");
         txtGenre.setText("");
         txtLanguage.setText("");
-        txtNumberOfPage.setText("");
+        txtNumberOfPages.setText("");
         
     }
      private void searchBook() {
@@ -342,7 +343,7 @@ public class BooksView extends javax.swing.JFrame {
                txtPublisher.setText(dto.getPublisher());
                txtGenre.setText(dto.getGenre());
                txtLanguage.setText(dto.getLanguage());
-               txtNumberOfPage.setText(Integer.toString(dto.getNumberOfPage()));
+               txtNumberOfPages.setText(Integer.toString(dto.getNumberOfPages()));
                
           }else{
               JOptionPane.showMessageDialog(this, "Book Not Found");  
@@ -370,7 +371,7 @@ public class BooksView extends javax.swing.JFrame {
                     txtPublisher.getText(),
                     txtGenre.getText(),
                     txtLanguage.getText(),
-                    Integer.parseInt(txtNumberOfPage.getText()));
+                    Integer.parseInt(txtNumberOfPages.getText()));
                    
         String resp = bookController.update(dto);
         JOptionPane.showMessageDialog(this, resp);
@@ -378,7 +379,7 @@ public class BooksView extends javax.swing.JFrame {
         loadTable();
             
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error at Update Book");
+            JOptionPane.showMessageDialog(this, "Error at Update Book"+ e.getLocalizedMessage());
         }
     }
           
@@ -390,7 +391,7 @@ public class BooksView extends javax.swing.JFrame {
                     txtPublisher.getText(),
                     txtGenre.getText(),
                     txtLanguage.getText(),
-                    Integer.parseInt(txtNumberOfPage.getText()));
+                    Integer.parseInt(txtNumberOfPages.getText()));
             
             String resp = bookController.save(dto);
             JOptionPane.showMessageDialog(this, resp);

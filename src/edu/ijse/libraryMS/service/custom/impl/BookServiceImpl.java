@@ -66,7 +66,7 @@ public class BookServiceImpl implements BookService{
               bookDto.getPublisher(),
               bookDto.getGenre(),
               bookDto.getLanguage(),
-              bookDto.getNumberOfPage());
+              bookDto.getNumberOfPages());
     }
 
     private BookDto getBookDto(BookEntity entity) {
@@ -77,7 +77,7 @@ public class BookServiceImpl implements BookService{
              entity.getPublisher(),
              entity.getGenre(),
              entity.getLanguage(),
-             entity.getNumberOfPage());
+             entity.getNumberOfPages());
     }
 }
 

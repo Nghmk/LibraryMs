@@ -15,19 +15,19 @@ public class BookEntity {
     private String Publisher;
     private String Genre;
     private String Language;
-    private int NumberOfPage;
+    private int NumberOfPages;
 
     public BookEntity() {
     }
 
-    public BookEntity(String BookId, String Title, String Author, String Publisher, String Genre, String Language, int NumberOfPage) {
+    public BookEntity(String BookId, String Title, String Author, String Publisher, String Genre, String Language, int NumberOfPages) {
         this.BookId = BookId;
         this.Title = Title;
         this.Author = Author;
         this.Publisher = Publisher;
         this.Genre = Genre;
         this.Language = Language;
-        this.NumberOfPage = NumberOfPage;
+        this.NumberOfPages = NumberOfPages;
     }
 
     /**
@@ -115,23 +115,24 @@ public class BookEntity {
     }
 
     /**
-     * @return the NumberOfPage
+     * @return the NumberOfPages
      */
-    public int getNumberOfPage() {
-        return NumberOfPage;
+    public int getNumberOfPages() {
+        return NumberOfPages;
     }
 
     /**
-     * @param NumberOfPage the NumberOfPage to set
+     * @param NumberOfPages the NumberOfPages to set
      */
-    public void setNumberOfPage(int NumberOfPage) {
-        this.NumberOfPage = NumberOfPage;
+    public void setNumberOfPages(int NumberOfPages) {
+        this.NumberOfPages = NumberOfPages;
     }
 
     @Override
     public String toString() {
-        return "BookEntity{" + "BookId=" + BookId + ", Title=" + Title + ", Author=" + Author + ", Publisher=" + Publisher + ", Genre=" + Genre + ", Language=" + Language + ", NumberOfPage=" + NumberOfPage + '}';
+        return "BookEntity{" + "BookId=" + BookId + ", Title=" + Title + ", Author=" + Author + ", Publisher=" + Publisher + ", Genre=" + Genre + ", Language=" + Language + ", NumberOfPages=" + NumberOfPages + '}';
     }
     
+
     
 }

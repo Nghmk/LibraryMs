@@ -18,13 +18,13 @@ public class BookDaoImpl implements BookDao{
 
     @Override
     public boolean create(BookEntity t) throws Exception {
-         return CrudUtil.excuteUpdate("INSERT INTO books VALUES(?,?,?,?,?,?,?) ", t.getBookId(),t.getTitle(),t.getAuthor(),t.getPublisher(),t.getGenre(),t.getLanguage(),t.getNumberOfPage());
+         return CrudUtil.excuteUpdate("INSERT INTO books VALUES(?,?,?,?,?,?,?) ", t.getBookId(),t.getTitle(),t.getAuthor(),t.getPublisher(),t.getGenre(),t.getLanguage(),t.getNumberOfPages());
    }
 
     @Override
     public boolean update(BookEntity t) throws Exception {
-         return CrudUtil.excuteUpdate("UPDATE BOOKS SET Title = ? ,Author = ?, Publisher = ?, Genre = ?, Language = ?, NumberOfPage = ? WHERE BookId = ? ",
-               t.getTitle(),t.getAuthor(),t.getPublisher(),t.getGenre(),t.getLanguage(),t.getNumberOfPage());
+         return CrudUtil.excuteUpdate("UPDATE BOOKS SET Title = ? ,Author = ?, Publisher = ?, Genre = ?, Language = ?, NumberOfPages = ? WHERE BookId = ? ",
+               t.getTitle(),t.getAuthor(),t.getPublisher(),t.getGenre(),t.getLanguage(),t.getNumberOfPages(),t.getBookId());
      }
 
     @Override
@@ -42,7 +42,7 @@ public class BookDaoImpl implements BookDao{
                    rst.getString("Publisher"),
                    rst.getString("Genre"),
                    rst.getString("Language"),
-                   rst.getInt("NumberOfPage"));
+                   rst.getInt("NumberOfPages"));
 
            return entity;
        }    
@@ -60,7 +60,7 @@ public class BookDaoImpl implements BookDao{
                    rst.getString("Publisher"),
                    rst.getString("Genre"),
                    rst.getString("Language"),
-                   rst.getInt("NumberOfPage"));
+                   rst.getInt("NumberOfPages"));
        bookEntities.add(entity);
        }
        return bookEntities;

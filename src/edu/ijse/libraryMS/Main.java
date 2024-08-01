@@ -6,6 +6,7 @@ package edu.ijse.libraryMS;
 
 import edu.ijse.libraryMS.view.BooksView;
 import edu.ijse.libraryMS.view.MemberView;
+import edu.ijse.libraryMS.view.TransactionView;
 
 /**
  *
@@ -18,7 +19,8 @@ public class Main {
      */
     public static void main(String[] args) throws Exception{
         //new MemberView().setVisible(true);
-         new BooksView().setVisible(true);
+        //new BooksView().setVisible(true);
+        new TransactionView().setVisible(true);
     }
     
 }
